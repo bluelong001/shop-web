@@ -47,12 +47,10 @@
 				1、MVC Route forwarding
 				2、Some Rest API
 				3、Picture Upload & Show
+				
+	Small Base Project
 
-	最基本基本基本的小项目。
-	无技术亮点。
-
-		致敬我已逝去的青春------------------- : ) 还有我的头发
-
+		Salute my lost youth - ----------------------------:) And my hair.
 	
 
 
