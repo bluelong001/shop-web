@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.blue.mapper.BillMapper">
+	<insert id="buy" parameterType="Bill">
+		insert into bill (
+		buyer_id,
+		commodity_id,
+		kind_id,
+		bill_flag,
+		logistics_id,
+		bill_num,
+		bill_money) values (
+		#{buyer_id},
+		#{commodity_id},
+		#{kind_id},
+		#{bill_flag},
+		#{logistics_id},
+		#{bill_num},
+		#{bill_money})
+	</insert>
+
+	<select id="get" parameterType="_int" resultType="Bill">
+		select * from
+		bill where buyer_id= #{buyer_id}
+	</select>
+
+	<select id="list" resultType="Bill">
+		select * from bill
+		<if test="start!=null and count!=null">
+			limit #{start},#{count}
+		</if>
+	</select>
+	<select id="total" resultType="int">
+		select count(*) from bill
+	</select>
+</mapper>
+

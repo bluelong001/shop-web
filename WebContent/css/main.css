@@ -1,0 +1,16 @@
+@charset "utf-8";
+@font-face{
+    font-family: Attf;
+    src : url('fonts/At.ttf');
+}
+.container .row.clearfix .col-md-12.column p center h1 .btn-group-justified {
+	font-family: Palatino Linotype, Book Antiqua, Palatino, serif;
+}
+body{
+	font-family:Attf.ttf;
+	
+}
+h2{
+	font-family:Attf.ttf;
+	color:white;
+}

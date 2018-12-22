@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.blue.mapper.BuyerMapper">
+	<insert id="register" parameterType="Buyer">
+		insert into buyer
+		(buyer_name,buyer_password) values
+		(#{buyer_name},#{buyer_password})
+	</insert>
+
+
+	<insert id="add" parameterType="Buyer">
+		insert into buyer (
+		buyer_name,
+		buyer_password,
+		buyer_age,
+		buyer_sex,
+		buyer_qq,
+		buyer_wechat,
+		buyer_address) values
+		(#{buyer_name},
+		#{buyer_password},
+		#{buyer_age},
+		#{buyer_sex},
+		#{buyer_qq},
+		#{buyer_wechat},
+		#{buyer_address})
+	</insert>
+
+	<delete id="delete" parameterType="Buyer">
+		delete from buyer where
+		buyer_id=
+		#{buyer_id}
+	</delete>
+
+	<select id="namebuf" parameterType="String" resultType="int">
+		select count(*) from
+		buyer where buyer_name= #{buyer_name}
+	</select>
+
+	<select id="get" parameterType="int" resultType="Buyer">
+		select * from
+		buyer where buyer_id= #{buyer_id}
+	</select>
+	
+	<select id="my" parameterType="int" resultType="Buyer">
+		select * from
+		buyer where buyer_id= #{buyer_id}
+	</select>
+
+	<update id="update" parameterType="Buyer">
+		update buyer set
+		buyer_name=#{buyer_name},
+		buyer_password=#{buyer_password},
+		buyer_age=#{buyer_age},
+		buyer_sex=#{buyer_sex},
+		buyer_qq=#{buyer_qq},
+		buyer_wechat=#{buyer_wechat},
+		buyer_address=#{buyer_address}
+		where
+		buyer_id=#{buyer_id}
+
+	</update>
+	<select id="list" resultType="Buyer">
+		select * from buyer
+		<if test="start!=null and count!=null">
+			limit #{start},#{count}
+		</if>
+	</select>
+
+	<select id="total" resultType="int">
+		select count(*) from buyer
+	</select>
+
+
+	<select id="check" resultType="int">
+		select buyer_id from buyer where
+		buyer_name=#{buyer_name} and buyer_password=#{buyer_password}
+	</select>
+</mapper>
+

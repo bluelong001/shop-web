@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.blue.mapper.CommodityMapper">
+	<insert id="add" parameterType="Commodity">
+		insert into commodity
+		(commodity_name,
+		kind_id,
+		seller_id,
+		commodity_price,
+		commodity_inprice,
+		commodity_num) values (#{commodity_name},
+		#{kind_id},
+		#{seller_id},
+		#{commodity_price},
+		#{commodity_inprice},
+		#{commodity_num})
+	</insert>
+
+	<update id="update" parameterType="Commodity">
+		update commodity set
+		commodity_name=#{commodity_name},
+		kind_id=#{kind_id},
+		seller_id=#{seller_id},
+		commodity_price=#{commodity_price},
+		commodity_inprice=#{commodity_inprice},
+		commodity_num=#{commodity_num}
+		where commodity_id=#{commodity_id}
+	</update>
+
+	<delete id="delete" parameterType="int">
+		delete from commodity where
+		commodity_id=#{commodity_id}
+	</delete>
+
+	<select id="show" parameterType="int" resultType="Commodity">
+		select * from
+		commodity where kind_id= #{kind_id}
+	</select>
+	<resultMap id="replymap" type="com.blue.pojo.Commodity">
+		<id column="commodity_id" property="commodity_id" />
+		<result column="commodity_name" property="commodity_name" />
+		<result column="commodity_price" property="commodity_price" />
+		<result column="commodity_num" property="commodity_num" />
+		<collection property="reply" ofType="com.blue.pojo.Reply">
+			<result column="buyer_id" property="buyer_id" />
+			<result column="reply_id" property="reply_id" />
+			<result column="reply_text" property="reply_text" />
+		</collection>
+	</resultMap>
+
+	<select id="replymap" parameterType="int" resultMap="replymap">
+		SELECT
+		commodity.commodity_id,
+		reply.buyer_id,
+		reply.reply_text,
+		reply.reply_id,
+		commodity.commodity_name,
+		commodity.commodity_price,
+		commodity.commodity_num
+		FROM
+		commodity
+		LEFT
+		JOIN reply ON
+		reply.commodity_id = commodity.commodity_id
+		WHERE
+		commodity.commodity_id=#{commodity_id}
+	</select>
+
+
+	<select id="get" parameterType="int" resultType="Commodity">
+		select * from
+		commodity where commodity_id= #{commodity_id}
+	</select>
+
+	<select id="sell" parameterType="int" resultType="Commodity">
+		select * from
+		commodity where seller_id= #{seller_id}
+	</select>
+
+
+
+
+	<select id="list" resultType="Commodity">
+		select * from commodity
+		<if test="start!=null and count!=null">
+			limit #{start},#{count}
+		</if>
+	</select>
+	<select id="total" resultType="int">
+		select count(*) from commodity
+	</select>
+</mapper>
+

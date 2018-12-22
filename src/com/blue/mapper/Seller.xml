@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.blue.mapper.SellerMapper">
+	<insert id="register" parameterType="Seller">
+		insert into seller
+		(seller_name,seller_password) values
+		(#{seller_name},#{seller_password})
+	</insert>
+
+
+	<insert id="add" parameterType="Seller">
+		insert into seller (
+		seller_name,
+		seller_password,
+		seller_age,
+		seller_sex,
+		seller_qq,
+		seller_wechat,
+		seller_address) values
+		(#{seller_name},
+		#{seller_password},
+		#{seller_age},
+		#{seller_sex},
+		#{seller_qq},
+		#{seller_wechat},
+		#{seller_address})
+	</insert>
+
+	<delete id="delete" parameterType="Seller">
+		delete from seller where
+		seller_id=
+		#{seller_id}
+	</delete>
+
+	<select id="get" parameterType="_int" resultType="Seller">
+		select * from
+		seller where seller_id= #{seller_id}
+	</select>
+	
+	<select id="my" parameterType="_int" resultType="Seller">
+		select * from
+		seller where seller_id= #{seller_id}
+	</select>
+
+	<update id="update" parameterType="Seller">
+		update seller set
+		seller_name=#{seller_name},
+		seller_password=#{seller_password},
+		seller_age=#{seller_age},
+		seller_sex=#{seller_sex},
+		seller_qq=#{seller_qq},
+		seller_wechat=#{seller_wechat},
+		seller_address=#{seller_address}
+		where
+		seller_id=#{seller_id}
+
+	</update>
+	<select id="list" resultType="Seller">
+		select * from seller
+		<if test="start!=null and count!=null">
+			limit #{start},#{count}
+		</if>
+	</select>
+
+	<select id="total" resultType="int">
+		select count(*) from seller
+	</select>
+
+
+	<select id="check" resultType="int">
+		select seller_id from seller where
+		seller_name=#{seller_name} and seller_password=#{seller_password}
+	</select>
+</mapper>
+
